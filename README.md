@@ -1,5 +1,6 @@
 # build the docker (from this folder)
 docker build -t cptc -f cptc.Dockerfile .
+
 docker build --pull --no-cache -t cptc -f cptc.Dockerfile .
 
 # from your local path
