@@ -1,0 +1,3 @@
+/src/tools/idsk/CMakeFiles/rebuild_cache.dir
+/src/tools/idsk/CMakeFiles/iDSK.dir
+/src/tools/idsk/CMakeFiles/edit_cache.dir
