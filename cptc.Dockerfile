@@ -17,7 +17,7 @@ ENV Z88DK_PATH="/opt/z88dk" \
 
 RUN apt-get update
 
-RUN export DEBIAN_FRONTEND=noninteractive \
+RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y tzdata \
     && ln -fs /usr/share/zoneinfo/Europe/Brussels /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
