@@ -18,6 +18,7 @@ ENV Z88DK_PATH="/opt/z88dk" \
 RUN apt-get update
 
 RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
     && apt-get install -y tzdata \
     && ln -fs /usr/share/zoneinfo/Europe/Brussels /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
@@ -71,6 +72,14 @@ RUN cd /tmp/tools/hex2bin \
 
 RUN cd /tmp/tools/nocart/src \
     && make
+
+RUN apt-get -y install libfreeimage-dev \
+    && cd /tmp \
+    && git clone https://github.com/Crazy-Piri/Img2CPC.git \
+    && cd Img2CPC/ \
+    && mkdir obj \
+    && make -f Makefile.others \
+    && cp bin/img2cpc /usr/local/bin/
 
 ENV PATH="${Z88DK_PATH}/bin:${PATH}" \
     ZCCCFG="${Z88DK_PATH}/lib/config/"
