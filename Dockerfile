@@ -1,7 +1,7 @@
 # To create the image:
-#   $ docker build -t z88dk -f z88dk.Dockerfile .
+#   $ docker build -t cptc -f Dockerfile .
 # To run the container:
-#   $ docker run -v ${PWD}:/src/ -it z88dk <command>
+#   $ docker run -v ${PWD}:/src/ -it cptc <command>
 
 FROM ubuntu:latest
 
