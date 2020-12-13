@@ -73,6 +73,12 @@ RUN cd /tmp/tools/hex2bin \
 RUN cd /tmp/tools/nocart/src \
     && make
 
+RUN mkdir /tmp/martine\
+	&& cd /tmp/martine\
+	&& wget https://github.com/jeromelesaux/martine/releases/download/v0.26/martine-0.26.0-linux.zip\
+	&& unzip martine-0.26.0-linux.zip\
+	&& mv martine /usr/local/bin
+
 RUN apt-get -y install libfreeimage-dev \
     && cd /tmp \
     && git clone https://github.com/Crazy-Piri/Img2CPC.git \
