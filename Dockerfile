@@ -87,6 +87,22 @@ RUN apt-get -y install libfreeimage-dev \
     && make -f Makefile.others \
     && cp bin/img2cpc /usr/local/bin/
 
+RUN apt-get -y install g++ cmake ninja-build libx11-dev libxcursor-dev libxi-dev libgl1-mesa-dev libfontconfig1-dev\
+	&& cd /tmp\
+	&& mkdir skia\
+	&& cd skia\
+	&& wget https://github.com/aseprite/skia/releases/download/m81-b607b32047/Skia-Linux-Release-x64.zip\
+	&& unzip Skia-Linux-Release-x64.zip\
+	&& cd /tmp\
+	&& git clone --recursive https://github.com/aseprite/aseprite.git\
+	&& cd aseprite\
+	&& mkdir build\
+	&& cd build\
+	&& cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=/tmp/skia -DSKIA_LIBRARY_DIR=/tmp/skia/out/Release-x64 -DSKIA_LIBRARY=/tmp/skia/out/Release-x64/libskia.a -G Ninja ..\
+	&& ninja aseprite\
+	&& mv /tmp/aseprite/build/bin /usr/local/bin/aseprite\
+	&& ln -s /tmp/aseprite/build/bin/aseprite /usr/local/bin
+
 ENV PATH="${Z88DK_PATH}/bin:${PATH}" \
     ZCCCFG="${Z88DK_PATH}/lib/config/"
 
