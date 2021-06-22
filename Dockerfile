@@ -22,7 +22,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y tzdata \
     && ln -fs /usr/share/zoneinfo/Europe/Brussels /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
-    && apt-get install -y git ca-certificates wget make patch gcc bzip2 unzip g++ texinfo bison flex libboost-dev libsdl1.2-dev pkgconf libfreetype6-dev libncurses-dev cmake vim zip php php-mbstring bsdmainutils
+    && apt-get install -y git ca-certificates wget make patch gcc bzip2 unzip g++ texinfo bison flex libboost-dev libsdl1.2-dev pkgconf libfreetype6-dev libncurses-dev cmake vim zip php php-mbstring php-gd bsdmainutils
 
 # Add, edit or uncomment the following lines to customize the z88dk compilation
 # COPY clib_const.m4 ${Z88DK_PATH}/libsrc/_DEVELOPMENT/target/
