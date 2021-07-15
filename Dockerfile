@@ -14,21 +14,23 @@ LABEL Version="0.2" \
 ENV SDCC_PATH="/tmp/sdcc" \
     SDCC_HOME="/tmp/sdcc"
 
-RUN apt-get update
-
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install -y tzdata \
     && ln -fs /usr/share/zoneinfo/Europe/Brussels /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
-    && apt-get install -y g++ libfreeimage-dev cmake ninja-build libx11-dev libxcursor-dev libxi-dev libgl1-mesa-dev libfontconfig1-dev clang git ca-certificates wget make patch gcc bzip2 unzip g++ texinfo bison flex libboost-dev libsdl1.2-dev pkgconf libfreetype6-dev libncurses-dev cmake vim zip php php-mbstring php-gd bsdmainutils
+    && apt-get install -y g++ libfreeimage-dev cmake ninja-build libx11-dev libxcursor-dev libxi-dev libgl1-mesa-dev libfontconfig1-dev clang git ca-certificates wget make patch gcc bzip2 unzip g++ texinfo bison flex libboost-dev libsdl1.2-dev pkgconf libfreetype6-dev libncurses-dev cmake vim zip php php-mbstring php-gd bsdmainutils \
+    libc6-amd64-cross libstdc++6-amd64-cross \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -s /usr/x86_64-linux-gnu/lib /lib64
 
 COPY tools /tmp/tools
 
-RUN wget -O /tmp/sdcc.tar.bz2 "https://downloads.sourceforge.net/project/sdcc/sdcc/4.1.0/sdcc-src-4.1.0.tar.bz2" \
+RUN wget -O /tmp/sdcc.tar.bz2 "https://downloads.sourceforge.net/project/sdcc/sdcc/4.0.0/sdcc-src-4.0.0.tar.bz2" \
     && cd /tmp \
     && rm -rf ${SDCC_PATH} \
     && tar xvjf sdcc.tar.bz2 \
+    && mv sdcc-4.0.0 sdcc \
     && cd ${SDCC_PATH} \
     && ./configure \
 		--disable-avr-port \                                               
@@ -81,7 +83,6 @@ RUN cd /tmp \
     && cp bin/img2cpc /usr/local/bin/ \
     && rm -rf /tmp/Img2CPC
 
-
 # RUN cd /tmp\
 # 	&& mkdir skia\
 # 	&& cd skia\
@@ -110,9 +111,8 @@ RUN cd /tmp \
     && cp rasm.exe /usr/local/bin/rasm \
     && rm -rf /tmp/rasm
 
-# For Cross execution
-RUN apt-get install -y libc6-amd64-cross libstdc++6-amd64-cross \
-    && ln -s /usr/x86_64-linux-gnu/lib /lib64
+RUN apt-get remove -y g++ cmake ninja-build libx11-dev libxcursor-dev libxi-dev libgl1-mesa-dev libfontconfig1-dev clang \
+    && apt-get autoremove -y
 
 ENV LD_LIBRARY_PATH="/usr/x86_64-linux-gnu/lib"
 
