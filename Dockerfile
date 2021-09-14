@@ -6,10 +6,10 @@
 FROM ubuntu:latest
 
 LABEL Version="0.2" \
-      Date="2021-Jul-15" \
-      Docker_Version="21.07.15 (2)" \
-      Maintainer="RedBug/Crazy Piri (@crazypiri)" \
-      Description="A basic Docker container to compile and use sdcc from GIT"
+    Date="2021-Jul-15" \
+    Docker_Version="21.07.15 (2)" \
+    Maintainer="RedBug/Crazy Piri (@crazypiri)" \
+    Description="A basic Docker container to compile and use sdcc from GIT"
 
 ENV SDCC_PATH="/tmp/sdcc" \
     SDCC_HOME="/tmp/sdcc"
@@ -33,23 +33,23 @@ RUN wget -O /tmp/sdcc.tar.bz2 "https://downloads.sourceforge.net/project/sdcc/sd
     && mv sdcc-4.0.0 sdcc \
     && cd ${SDCC_PATH} \
     && ./configure \
-		--disable-avr-port \                                               
-        --disable-xa-port \                                                
-        --disable-mcs51-port \                                             
-        --disable-z180-port \                                              
-        --disable-r2k-port \                                               
-        --disable-r3ka-port \                                              
-        --disable-gbz80-port \                                             
-        --disable-ds390-port \                                             
-        --disable-ds400-port \                                             
-        --disable-pic14-port \                                             
-        --disable-pic16-port \                                        
-        --disable-hc08-port \                                         
-        --disable-s08-port \                                          
-        --disable-tlcs90-port \                      
-        --disable-st7-port \                         
-        --disable-stm8-port \                        
-        --disable-ucsim \
+    --disable-avr-port \                                               
+    --disable-xa-port \                                                
+    --disable-mcs51-port \                                             
+    --disable-z180-port \                                              
+    --disable-r2k-port \                                               
+    --disable-r3ka-port \                                              
+    --disable-gbz80-port \                                             
+    --disable-ds390-port \                                             
+    --disable-ds400-port \                                             
+    --disable-pic14-port \                                             
+    --disable-pic16-port \                                        
+    --disable-hc08-port \                                         
+    --disable-s08-port \                                          
+    --disable-tlcs90-port \                      
+    --disable-st7-port \                         
+    --disable-stm8-port \                        
+    --disable-ucsim \
     && make \
     && make install \
     && rm -rf /tmp/sdcc /tmp/sdcc.tar.bz2
@@ -65,14 +65,19 @@ RUN cd /tmp/tools/hex2bin \
     && mv hex2bin /usr/local/bin/ \
     && rm -rf /tmp/tools/hex2bin
 
+RUN cd /tmp/tools/tzx2wav \
+    && make \
+    && mv tzx2wav /usr/local/bin/ \
+    && rm -rf /tmp/tools/tzx2wav
+
 RUN cd /tmp/tools/nocart/src \
     && make
 
 RUN mkdir /tmp/martine\
-	&& cd /tmp/martine\
-	&& wget https://github.com/jeromelesaux/martine/releases/download/v0.26/martine-0.26.0-linux.zip\
-	&& unzip martine-0.26.0-linux.zip\
-	&& mv martine /usr/local/bin \
+    && cd /tmp/martine\
+    && wget https://github.com/jeromelesaux/martine/releases/download/v0.26/martine-0.26.0-linux.zip\
+    && unzip martine-0.26.0-linux.zip\
+    && mv martine /usr/local/bin \
     && rm -rf /tmp/martine
 
 RUN cd /tmp \
