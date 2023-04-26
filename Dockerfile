@@ -20,7 +20,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && ln -fs /usr/share/zoneinfo/Europe/Brussels /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && apt-get install -y g++ libfreeimage-dev cmake ninja-build libx11-dev libxcursor-dev libxi-dev libgl1-mesa-dev libfontconfig1-dev clang git ca-certificates wget make patch gcc bzip2 unzip g++ texinfo bison flex libboost-dev libsdl1.2-dev pkgconf libfreetype6-dev libncurses-dev cmake vim zip php php-mbstring php-gd bsdmainutils \
-    libc6-amd64-cross libstdc++6-amd64-cross \
+    libc6-amd64-cross libstdc++6-amd64-cross php-yaml \
     && rm -rf /var/lib/apt/lists/* \
     && ln -s /usr/x86_64-linux-gnu/lib /lib64
 
