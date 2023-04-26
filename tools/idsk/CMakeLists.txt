@@ -1,5 +1,7 @@
 PROJECT(iDSK)
 
+set(CMAKE_CXX_STANDARD 14)
+
 add_executable(iDSK
 	src/Basic.cpp
 	src/BitmapCPC.cpp
